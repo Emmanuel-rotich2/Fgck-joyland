@@ -1,0 +1,114 @@
+FGCK JOYLAND – COMMUNICATIONS & CHURCH EVENTS UPDATE
+============================================================
+
+This update adds:
+
+PASTOR PORTAL
+- Communications Center
+- Broadcast pastoral announcements to all active members
+- Broadcast messages only to members with upcoming appointments
+- Message types: Announcement, Pastoral Message, Prayer Point, Reminder, Urgent Notice
+- Normal / Important / Urgent priority
+- Save drafts or publish immediately
+- In-portal member notifications
+- Optional email delivery using the existing SMTP configuration
+- Communication history and read-count reporting
+- Church Events Manager
+- Event categories: Worship, Bible Study, Prayer, Youth, Outreach, Conference,
+  Fellowship, Special Service and Other
+- Date, time, venue/meeting link and description
+- Optional member RSVP
+- RSVP deadline
+- Going / Maybe / Not going counts
+- Cancel event and automatically notify members
+- Mark completed events
+- Dashboard communication/event summaries
+
+MEMBER PORTAL
+- Church Messages
+- Unread message counters
+- Mark one message read / mark all read
+- Church Events
+- Event details and venue
+- Member RSVP where enabled
+- Notifications inbox
+- Mark one notification read / mark all read
+- Dashboard cards for unread messages, events and communications
+- Upcoming events and latest pastoral message shown directly on dashboard
+
+DATABASE INSTALLATION
+----------------------
+For an EXISTING FGCK Joyland installation:
+
+1. Back up the database.
+2. Open phpMyAdmin.
+3. Select the fgck_joyland database.
+4. Import:
+   database/migration_communications_events.sql
+5. Confirm that these tables exist:
+   announcements
+   announcement_reads
+   church_events
+   event_rsvps
+
+For a NEW installation:
+- Use database/schema.sql. It already includes the new tables.
+
+EMAIL
+-----
+The communication and event publishing screens use the existing SMTP system.
+If EMAIL_ENABLED is true and the SMTP credentials are correct, publishing a
+message/event also sends email to the selected members.
+
+If email is disabled or SMTP fails:
+- The in-portal notification is still created.
+- The pastor can continue using the portal normally.
+- SMTP failures are logged using the existing storage/email.log mechanism.
+
+MAIN PASTOR URLS
+----------------
+/fgck_joyland/staff/dashboard.php
+/fgck_joyland/staff/communications.php
+/fgck_joyland/staff/events.php
+
+MAIN MEMBER URLS
+----------------
+/fgck_joyland/member/dashboard.php
+/fgck_joyland/member/announcements.php
+/fgck_joyland/member/events.php
+/fgck_joyland/member/notifications.php
+
+SUGGESTED CHURCH EVENTS
+-----------------------
+The event manager is ready for examples such as:
+- Sunday Worship Service
+- Wednesday Bible Study
+- Church Prayer Meeting
+- Youth Fellowship
+- Evangelism / Outreach Day
+- Worship & Revelation Night
+- Men's Fellowship
+- Women's Fellowship
+- Youth Sunday
+- Thanksgiving Service
+- Leadership Conference
+- Family Fellowship
+- Community Outreach
+- Special Guest Ministry
+- Church Anniversary
+- Holy Communion Service
+
+SECURITY
+--------
+- Existing session authentication is preserved.
+- Existing CSRF protection is used on all new forms.
+- Member-facing queries are restricted to the logged-in member.
+- Pastor actions require staff authentication.
+- Database writes use prepared statements.
+- Message/event output is escaped before rendering.
+
+IMPORTANT
+---------
+Run the database migration BEFORE opening the new Communications or Events
+pages on an existing database. The new sidebar counters depend on the new
+tables being present.

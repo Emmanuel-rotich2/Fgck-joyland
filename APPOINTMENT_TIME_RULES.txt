@@ -1,0 +1,17 @@
+FGCK JOYLAND APPOINTMENT TIME RULES
+
+- Appointment duration: exactly 30 minutes.
+- Fixed closing time: 3:00 PM.
+- The Pastor controls the opening time.
+- Whenever the opening time changes, slots are regenerated automatically from the new opening time to 3:00 PM.
+- Example: opening at 11:00 AM creates exactly these 8 slots:
+  11:00-11:30
+  11:30-12:00
+  12:00-12:30
+  12:30-1:00
+  1:00-1:30
+  1:30-2:00
+  2:00-2:30
+  2:30-3:00
+- Slots are generated when the member/staff schedule is opened and the availability API also detects settings changes.
+- Old unbooked slots outside the new window are removed automatically. Existing booked appointments are preserved for record integrity.

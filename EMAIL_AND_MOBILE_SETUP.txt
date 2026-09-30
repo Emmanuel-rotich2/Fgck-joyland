@@ -1,0 +1,70 @@
+FGCK JOYLAND - EMAIL NOTIFICATION SETUP
+==========================================
+
+WHAT HAS BEEN ADDED
+-------------------
+1. When a member successfully books an appointment:
+   - The appointment is saved first.
+   - The pastor receives an email notification containing:
+     member name, phone, email, date, time, purpose and reference number.
+2. When the pastor confirms/declines/cancels/completes/no-shows an appointment:
+   - The member receives an email notification.
+3. When the pastor adjusts an appointment time:
+   - The member receives an email showing the old and new time.
+4. Existing in-portal notifications remain active.
+5. Mobile/responsive improvements:
+   - Better phone layout.
+   - Working mobile sidebar overlay.
+   - Bootstrap JavaScript added so booking/time-adjustment modals work.
+   - Installable web-app manifest added.
+
+EMAIL CONFIGURATION
+-------------------
+Edit:
+    config/email.php
+
+For Gmail, use:
+    EMAIL_SMTP_HOST = smtp.gmail.com
+    EMAIL_SMTP_PORT = 587
+    EMAIL_SMTP_ENCRYPTION = tls
+    EMAIL_SMTP_USERNAME = your Gmail address
+    EMAIL_SMTP_PASSWORD = your Google App Password
+    EMAIL_FROM_EMAIL = the same Gmail address
+    EMAIL_REPLY_TO = the same Gmail address
+
+IMPORTANT:
+- Do not put your normal Gmail password in the PHP file.
+- Use a Google App Password for SMTP authentication.
+- Replace every YOUR_... placeholder before testing.
+- Make sure the pastor's real email address is stored in the users table:
+      SELECT id, full_name, email, role, status FROM users;
+  The pastor should have role='pastor' and status='active'.
+
+If the pastor email is currently:
+    pastor@fgckjoyland.local
+replace it with the pastor's real email address.
+
+DATABASE
+--------
+No new database table is required for email notifications.
+The existing users and members email fields are used.
+
+LOCAL XAMPP
+-----------
+The website can run normally on XAMPP, but outbound SMTP must be allowed by the computer/network.
+If SMTP is blocked locally, test the same project on the live hosting server after entering the correct SMTP credentials.
+
+EMAIL LOG
+---------
+Failed SMTP attempts are written to:
+    storage/email.log
+
+The email failure will NOT cancel a booking or confirmation. The database/portal notification remains the authoritative record.
+
+PHONE ACCESS
+------------
+The system is responsive. Open the same website URL on a phone using the phone browser.
+For local XAMPP testing from another phone on the same Wi-Fi, use the computer's LAN IP, for example:
+    http://192.168.1.10/fgck_joyland/
+
+Do not use "localhost" on the phone because localhost refers to the phone itself.
